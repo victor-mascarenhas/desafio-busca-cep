@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import InputMask from "../components/InputMask";
-import validate from "../utils/Validation";
+import validate from "../utils/validation";
 import { useEffect } from "react";
 
 const InputView = ({

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 //Utils
-import Toast from "./utils/Toast";
+import responseHandler from "./utils/responseHandler";
 
 //GlobalStyle
 import GlobalStyles from "./components/GlobalStyles";
@@ -33,38 +32,11 @@ function App() {
         );
 
         setCep(data);
-
-        if (data.status === 200) {
-          Toast.fire({
-            icon: "success",
-            title: "Encontrado!",
-          });
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: data.message,
-          });
-        }
-
+        responseHandler(data);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-
-        if (err.response.data && err.response.data.code === "ETIMEDOUT") {
-          Swal.fire({
-            title: "Opa!",
-            text: "Você deve aguardar alguns segundos antes de fazer uma nova consulta.",
-            icon: "warning",
-            showConfirmButton: false,
-          });
-        } else {
-          Swal.fire({
-            title: "Erro!",
-            text: "Não foi possível conectar-se com o servidor.",
-            icon: "error",
-            showConfirmButton: false,
-          });
-        }
+        responseHandler(err, true);
       }
     }
   };
