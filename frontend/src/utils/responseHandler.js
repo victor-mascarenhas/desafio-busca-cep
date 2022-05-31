@@ -27,6 +27,12 @@ const responseHandler = (dataObj, isError = false) => {
           title: "Bloqueado por excesso de tentativas",
         });
         break;
+      case 404:
+        Toast.fire({
+          icon: "error",
+          title: "CEP não encontrado",
+        });
+        break;
       default:
         Toast.fire({
           icon: "error",
